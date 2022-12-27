@@ -1,32 +1,29 @@
 import { Router } from "express";
 
+import {
+  getAllBootcamps,
+  createBootcamp,
+  deleteBootcamp,
+  getSingleBootcamp,
+  updateBootcamp
+} from "../controllers/bootcamps.js";
+
 // initialize router
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({ message: "Show all bootcamps!" });
-});
+// get all bootcamps
+router.get("/", getAllBootcamps);
 
-router.post("/", (req, res) => {
-  res.status(200).json({ message: "Create new bootcamps!" });
-});
+// create bootcamp
+router.post("/", createBootcamp);
 
-router.patch("/:id", (req, res) => {
-  res
-    .status(200)
-    .json({ message: `Update specific bootcamp with id: ${req.params.id}!` });
-});
+// update bootcamp
+router.patch("/:id", updateBootcamp);
 
-router.get("/:id", (req, res) => {
-  res
-    .status(200)
-    .json({ message: `Get specific bootcamp with id: ${req.params.id}!` });
-});
+// get single bootcamp
+router.get("/:id", getSingleBootcamp);
 
-router.delete("/:id", (req, res) => {
-  res
-    .status(200)
-    .json({ message: `Delete bootcamp with id: ${req.params.id}!` });
-});
+// delete bootcamp
+router.delete("/:id", deleteBootcamp);
 
 export default router;
