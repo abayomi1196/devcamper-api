@@ -1,8 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-
-// custom middleware
-import logger from "./middlewares/logger.js";
+import morgan from "morgan";
 
 // router files
 import BootcampRouter from "./routes/bootcamps.js";
@@ -13,8 +11,10 @@ dotenv.config({ path: "./config/config.env" });
 // initialize app
 const app = express();
 
-// setup custom middlewares
-app.use(logger);
+// setup custom middlewares for dev login
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 // setup routes
 app.use("/api/v1/bootcamps", BootcampRouter);
