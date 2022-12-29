@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import colors from "colors";
 
 import connectDB from "./config/db.js";
 
@@ -28,5 +29,7 @@ connectDB();
 
 app.listen(
   PORT,
-  console.log(`Local server setup in ${process.env.NODE_ENV} on port: ${PORT}`)
+  console.log(
+    `Local server setup in ${process.env.NODE_ENV} on port: ${PORT}`.yellow.bold
+  )
 );
