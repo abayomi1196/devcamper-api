@@ -4,6 +4,7 @@ import morgan from "morgan";
 import colors from "colors";
 
 import connectDB from "./config/db.js";
+import errorHandler from "./middlewares/error.js";
 
 // router files
 import BootcampRouter from "./routes/bootcamps.js";
@@ -24,6 +25,9 @@ if (process.env.NODE_ENV === "development") {
 
 // setup routes
 app.use("/api/v1/bootcamps", BootcampRouter);
+
+// middleware for error handling
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8888;
 
