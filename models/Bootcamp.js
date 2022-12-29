@@ -28,7 +28,7 @@ const BootcampSchema = new Schema({
   email: {
     type: String,
     match: [
-      /^\w+([\.-]?\w+)*@w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Please add a valid email"
     ]
   },
@@ -41,11 +41,11 @@ const BootcampSchema = new Schema({
     type: {
       type: String,
       enum: ["Point"],
-      required: true
+      required: false
     },
     coordinates: {
       type: [Number],
-      required: true,
+      required: false,
       index: "2dsphere"
     },
     formattedAddress: String,

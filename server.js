@@ -11,6 +11,9 @@ import BootcampRouter from "./routes/bootcamps.js";
 // initialize app
 const app = express();
 
+// allow body parser for json
+app.use(express.json());
+
 // load env files
 dotenv.config({ path: "./config/config.env" });
 

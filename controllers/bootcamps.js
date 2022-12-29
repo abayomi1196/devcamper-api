@@ -1,3 +1,5 @@
+import BootCampModel from "../models/Bootcamp.js";
+
 // @dec -> GET all bootcamps
 // @route -> GET /api/vi/bootcamps
 // @access -> public
@@ -17,8 +19,14 @@ export const getSingleBootcamp = (req, res, next) => {
 // @dec -> POST create bootcamp
 // @route -> POST /api/vi/bootcamps
 // @access -> private
-export const createBootcamp = (req, res, next) => {
-  res.status(200).json({ message: `Create Bootcamp!` });
+export const createBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await BootCampModel.create(req.body);
+    res.status(201).json({ message: "Created successfully!!", bootcamp });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ message: "Something went wrong!!" });
+  }
 };
 
 // @dec -> PATCH update bootcamp
