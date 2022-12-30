@@ -1,8 +1,11 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
-import dotenv from "dotenv";
 import morgan from "morgan";
 import colors from "colors";
 
+// load env files
 import connectDB from "./config/db.js";
 import errorHandler from "./middlewares/error.js";
 
@@ -14,9 +17,6 @@ const app = express();
 
 // allow body parser for json
 app.use(express.json());
-
-// load env files
-dotenv.config({ path: "./config/config.env" });
 
 // setup custom middlewares for dev request logging
 if (process.env.NODE_ENV === "development") {
