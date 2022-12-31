@@ -5,7 +5,8 @@ import {
   createBootcamp,
   deleteBootcamp,
   getSingleBootcamp,
-  updateBootcamp
+  updateBootcamp,
+  getBootcampsInRadius
 } from "../controllers/bootcamps.js";
 
 // initialize router
@@ -25,5 +26,8 @@ router.get("/:id", getSingleBootcamp);
 
 // delete bootcamp
 router.delete("/:id", deleteBootcamp);
+
+//get all bootcamps in a specified radius
+router.get("/radius/:zipcode/:distance", getBootcampsInRadius);
 
 export default router;
