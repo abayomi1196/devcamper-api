@@ -7,14 +7,41 @@ import Geocoder from "../utils/geocoder.js";
 // @route -> GET /api/vi/bootcamps
 // @access -> public
 export const getAllBootcamps = asyncHandler(async (req, res, next) => {
-  let queryStr = JSON.stringify(req.query);
+  let query;
 
+  const reqQuery = { ...req.query };
+
+  // fields to exclude
+  const removeFields = ["select", "sort"];
+
+  // remove excluded fields from query
+  removeFields.forEach((param) => delete reqQuery[param]);
+
+  let queryStr = JSON.stringify(reqQuery);
+
+  // prepend operators with $ sign (needed for mongoose operations)
   queryStr = queryStr.replace(
     /\b(gt|gte|lt|lte|in)\b/g,
     (match) => `$${match}`
   );
 
-  const bootcamps = await BootCampModel.find(JSON.parse(queryStr));
+  query = BootCampModel.find(JSON.parse(queryStr));
+
+  // select fields
+  if (req.query.select) {
+    const fields = req.query.select.split(",").join(" ");
+    query = query.select(fields);
+  }
+
+  // sort fields
+  if (req.query.sort) {
+    const sortBy = req.query.sort.split(",").join(" ");
+    query = query.sort(sortBy);
+  } else {
+    query = query.sort("-createdAt");
+  }
+
+  const bootcamps = await query;
   res.status(200).json({ nbHits: bootcamps.length, bootcamps });
 });
 
