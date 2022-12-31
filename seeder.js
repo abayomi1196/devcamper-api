@@ -10,6 +10,7 @@ import colors from "colors";
 
 // load models
 import BootcampModel from "./models/Bootcamp.js";
+import CourseModel from "./models/Course.js";
 
 // connect to DB
 mongoose.set("strictQuery", false);
@@ -20,10 +21,15 @@ const bootcamps = JSON.parse(
   fs.readFileSync(`${__dirname}/_data/bootcamps.json`, "utf-8")
 );
 
+const courses = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/courses.json`, "utf-8")
+);
+
 // import data into DB
 const importData = async () => {
   try {
     await BootcampModel.create(bootcamps);
+    await CourseModel.create(courses);
     console.log("Data imported..".green.inverse);
     process.exit();
   } catch (error) {
@@ -35,6 +41,7 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     await BootcampModel.deleteMany();
+    await CourseModel.deleteMany();
     console.log("Data deleted...".red.inverse);
     process.exit();
   } catch (error) {
