@@ -11,6 +11,7 @@ import errorHandler from "./middlewares/error.js";
 
 // router files
 import BootcampRouter from "./routes/bootcamps.js";
+import CoursesRouter from "./routes/courses.js";
 
 // initialize app
 const app = express();
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === "development") {
 
 // setup routes
 app.use("/api/v1/bootcamps", BootcampRouter);
+app.use("/api/v1/courses", CoursesRouter);
 
 // middleware for error handling
 app.use(errorHandler);
