@@ -6,7 +6,8 @@ import {
   deleteBootcamp,
   getSingleBootcamp,
   updateBootcamp,
-  getBootcampsInRadius
+  getBootcampsInRadius,
+  uploadBootcampPhoto
 } from "../controllers/bootcamps.js";
 
 // include other resource routers
@@ -32,6 +33,9 @@ router.get("/:id", getSingleBootcamp);
 
 // delete bootcamp
 router.delete("/:id", deleteBootcamp);
+
+// upload bootcamp photo
+router.patch("/:id/photo", uploadBootcampPhoto);
 
 //get all bootcamps in a specified radius
 router.get("/radius/:zipcode/:distance", getBootcampsInRadius);

@@ -1,9 +1,13 @@
 import * as dotenv from "dotenv";
 dotenv.config();
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
+import path from "path";
 import express from "express";
 import morgan from "morgan";
 import colors from "colors";
+import fileUpload from "express-fileupload";
 
 // load env files
 import connectDB from "./config/db.js";
@@ -23,6 +27,12 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+//middleware for file upload
+app.use(fileUpload());
+
+// set static folder (public)
+app.use(express.static(path.join(__dirname, "public")));
 
 // setup routes
 app.use("/api/v1/bootcamps", BootcampRouter);
