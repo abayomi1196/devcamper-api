@@ -13,6 +13,10 @@ import {
 // include other resource routers
 import courseRouter from "./courses.js";
 
+import BootcampsModel from "../models/Bootcamp.js";
+// middleware
+import advancedResults from "../middlewares/advancedResults.js";
+
 // initialize router
 const router = Router();
 
@@ -20,7 +24,7 @@ const router = Router();
 router.use("/:bootcampId/courses", courseRouter);
 
 // get all bootcamps
-router.get("/", getAllBootcamps);
+router.get("/", advancedResults(BootcampsModel, "courses"), getAllBootcamps);
 
 // create bootcamp
 router.post("/", createBootcamp);
