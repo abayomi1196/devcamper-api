@@ -57,13 +57,17 @@ CourseSchema.static("getAverageCost", async function (bootcampId) {
 });
 
 // middleware for getting average cost after saving a course
-CourseSchema.post("save", function () {
+CourseSchema.post("save", function (next) {
   this.constructor.getAverageCost(this.bootcamp);
+
+  next();
 });
 
 // middleware for getting average cost before removing a course
-CourseSchema.pre("remove", function () {
+CourseSchema.pre("remove", function (next) {
   this.constructor.getAverageCost(this.bootcamp);
+
+  next();
 });
 
 export default mongoose.model("Course", CourseSchema);

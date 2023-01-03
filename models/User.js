@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
 const UserSchema = new Schema({
   name: {
@@ -31,6 +32,14 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now()
   }
+});
+
+// middleware for encrypting password
+UserSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+
+  next();
 });
 
 export default model("User", UserSchema);
