@@ -16,6 +16,7 @@ import errorHandler from "./middlewares/error.js";
 // router files
 import BootcampRouter from "./routes/bootcamps.js";
 import CoursesRouter from "./routes/courses.js";
+import AuthRouter from "./routes/auth.js";
 
 // initialize app
 const app = express();
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // setup routes
 app.use("/api/v1/bootcamps", BootcampRouter);
 app.use("/api/v1/courses", CoursesRouter);
+app.use("/api/v1/auth", AuthRouter);
 
 // middleware for error handling
 app.use(errorHandler);
