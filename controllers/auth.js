@@ -9,7 +9,10 @@ export const registerUser = asyncHandler(async (req, res, next) => {
   const { name, email, password, role } = req.body;
 
   // create user
-  await UserModel.create({ name, email, password, role });
+  const user = await UserModel.create({ name, email, password, role });
 
-  res.status(200).json({ message: "User created successfully" });
+  // create token
+  const token = user.getSignedJwtToken();
+
+  res.status(200).json({ message: "User created successfully", token });
 });
