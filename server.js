@@ -8,6 +8,7 @@ import express from "express";
 import morgan from "morgan";
 import colors from "colors";
 import fileUpload from "express-fileupload";
+import cookieParser from "cookie-parser";
 
 // load env files
 import connectDB from "./config/db.js";
@@ -31,6 +32,9 @@ if (process.env.NODE_ENV === "development") {
 
 //middleware for file upload
 app.use(fileUpload());
+
+// middleware for cookie parser
+app.use(cookieParser());
 
 // set static folder (public)
 app.use(express.static(path.join(__dirname, "public")));
