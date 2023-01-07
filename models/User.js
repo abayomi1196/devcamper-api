@@ -50,4 +50,9 @@ UserSchema.methods.getSignedJwtToken = function () {
   });
 };
 
+// match user entered password to hashed password in db
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
 export default model("User", UserSchema);
