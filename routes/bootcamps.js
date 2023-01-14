@@ -16,7 +16,7 @@ import courseRouter from "./courses.js";
 import BootcampsModel from "../models/Bootcamp.js";
 // middleware
 import advancedResults from "../middlewares/advancedResults.js";
-import { protectRoute } from "../middlewares/auth.js";
+import { protectRoute, authorizeRoute } from "../middlewares/auth.js";
 
 // initialize router
 const router = Router();
@@ -28,19 +28,39 @@ router.use("/:bootcampId/courses", courseRouter);
 router.get("/", advancedResults(BootcampsModel, "courses"), getAllBootcamps);
 
 // create bootcamp
-router.post("/", protectRoute, createBootcamp);
+router.post(
+  "/",
+  protectRoute,
+  authorizeRoute("admin", "publisher"),
+  createBootcamp
+);
 
 // update bootcamp
-router.patch("/:id", protectRoute, updateBootcamp);
+router.patch(
+  "/:id",
+  protectRoute,
+  authorizeRoute("admin", "publisher"),
+  updateBootcamp
+);
 
 // get single bootcamp
 router.get("/:id", getSingleBootcamp);
 
 // delete bootcamp
-router.delete("/:id", protectRoute, deleteBootcamp);
+router.delete(
+  "/:id",
+  protectRoute,
+  authorizeRoute("admin", "publisher"),
+  deleteBootcamp
+);
 
 // upload bootcamp photo
-router.patch("/:id/photo", protectRoute, uploadBootcampPhoto);
+router.patch(
+  "/:id/photo",
+  protectRoute,
+  authorizeRoute("admin", "publisher"),
+  uploadBootcampPhoto
+);
 
 //get all bootcamps in a specified radius
 router.get("/radius/:zipcode/:distance", getBootcampsInRadius);

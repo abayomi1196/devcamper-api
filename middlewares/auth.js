@@ -30,3 +30,16 @@ export const protectRoute = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Not authorized", 401));
   }
 });
+
+// role-specific access
+export const authorizeRoute =
+  (...roles) =>
+  (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorResponse(`User role: ${req.user.role} is unauthorized`, 403)
+      );
+    }
+
+    next();
+  };
