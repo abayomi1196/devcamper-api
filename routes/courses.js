@@ -9,6 +9,7 @@ import {
 
 import CoursesModel from "../models/Course.js";
 import advancedResults from "../middlewares/advancedResults.js";
+import { protectRoute } from "../middlewares/auth.js";
 
 const router = Router({ mergeParams: true });
 
@@ -26,12 +27,12 @@ router.get(
 router.get("/:id", getSingleCourse);
 
 // add course
-router.post("/", createCourse);
+router.post("/", protectRoute, createCourse);
 
 // update course
-router.patch("/:id", updateCourse);
+router.patch("/:id", protectRoute, updateCourse);
 
 // delete course
-router.delete("/:id", deleteCourse);
+router.delete("/:id", protectRoute, deleteCourse);
 
 export default router;

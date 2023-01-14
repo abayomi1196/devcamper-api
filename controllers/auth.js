@@ -62,3 +62,12 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 
   sendTokenResponse(user, 200, res);
 });
+
+//@desc -> Get current logged in user
+//@router -> POST /api/v1/auth/me
+//@access -> Private
+export const getCurrentUser = asyncHandler(async (req, res, next) => {
+  const user = await UserModel.findById(req.user.id);
+
+  res.status(200).json({ user });
+});
